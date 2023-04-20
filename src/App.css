@@ -1,0 +1,30 @@
+.App {
+    padding: 30px;
+    display: flex;
+}
+
+.App > div {
+    margin-right: 50px;
+}
+
+.error {
+    border: #e31f1f 2.3px solid;
+}
+
+.error-message {
+    color: #e31f1f;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    font-family: Monaco;
+    margin-top: 6px;
+}
+
+.active-filter {
+    background-color: palegreen;
+    border: 2px #6ede6e solid;
+}
+
+.is-done {
+    opacity: 0.5;
+}
