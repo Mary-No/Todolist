@@ -1,5 +1,6 @@
-import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
+import React, {ChangeEvent} from 'react';
 import {FilterValuesType} from './App';
+import {AddItemForm} from './AddItemForm';
 
 export type TaskItemType = {
     id: string,
@@ -10,77 +11,51 @@ type PropsType = {
     todolistId: string,
     title: string,
     task: Array<TaskItemType>
-    removeTask: (id: string) => void
+    removeTask: (id: string, todolistId: string) => void
     changeFilter: (value: FilterValuesType, todolistId: string) => void
-    addTask: (newInputTask: string) => void
-    changeStatus: (taskId: string, isDone: boolean) => void
+    addTask: (title: string, todolistId: string) => void
+    changeStatus: (taskId: string, isDone: boolean, todolistId: string) => void
     filter: FilterValuesType
+    removeTodolist: (todolistId: string) => void
 
 }
 
 export function TodoList(props: PropsType) {
 
-    let [newInputTask, setInput] = useState('') // ставим useState, чтобы следить за изменением Input
-    let [error, setError] = useState('')
-
-    //Обработчик изменения значения value, setInput отображает изменение
-    const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        setInput(e.currentTarget.value)
-    }
-    // при нажатии Enter вызвать функцию AddTask
-    const onKeyPressHandler = (e: KeyboardEvent<HTMLInputElement>) => {
-        setError('')
-        if (e.key === 'Enter') {
-            addTask();
-        }
-    }
-    //из пропсов вызывает ф-цию addTask из App и передает измененное значение в Input
-    const addTask = () => {
-        if (newInputTask.trim() !== '') { // функция trim() удаляет пробелы с двух сторон
-            props.addTask(newInputTask.trim());
-            setInput('');  //делает Input пустым
-        } else { // если пытаться добавить пустую строку
-            setError('Title is required')
-
-        }
-
-    }
-
     const onAllClickHandler = () => props.changeFilter('all', props.todolistId)
     const onActiveClickHandler = () => props.changeFilter('active', props.todolistId)
     const onCompletedClickHandler = () => props.changeFilter('completed', props.todolistId)
+    const removeTodolist = () => {
 
-
+        props.removeTodolist(props.todolistId)
+    }
+    const addTask = (title: string) => {
+        props.addTask(title, props.todolistId)
+    }
     return (
         <div className="TodoList">
             <div>
                 <h3>{props.title}</h3>
-                <div>
-                    <input value={newInputTask}
-                           onChange={onChangeHandler} onKeyPress={onKeyPressHandler}
-                           className={error ? 'error' : ''} // /если error !== "", то это true
-                    />
-                    <button onClick={addTask}>+</button>
-                    {/*если error !== "", то есть равен true, то добавить div с текстом ошибки*/}
-                    {error && <div className="error-message">Title is required</div>}
-                </div>
+                <AddItemForm addItem={addTask}/>
 
                 <ul>
                     {
                         props.task.map((task) => {
-                            const removeTask = () => props.removeTask(task.id);
+                            const removeTask = () => props.removeTask(task.id, props.todolistId);
                             const onChangeStatusHandler = (e: ChangeEvent<HTMLInputElement>) => {
-                                props.changeStatus(task.id, e.currentTarget.checked)
+                                props.changeStatus(task.id, e.currentTarget.checked, props.todolistId)
+                                props.changeStatus(task.id, e.currentTarget.checked, props.todolistId)
 
 
                             }
                             return <li key={task.id} className={task.isDone ? 'is-done' : ''}>
-                                <input type="checkbox"
+                                <input className="checkbox"
+                                       type="checkbox"
                                        checked={task.isDone}
                                        onChange={onChangeStatusHandler}
                                 />
                                 <span>{task.title}</span>
-                                <button onClick={removeTask}>✖</button>
+                                <button className="deleteTaskBtn" onClick={removeTask}>✖</button>
                             </li>
                         })
                     }
@@ -97,6 +72,7 @@ export function TodoList(props: PropsType) {
                     </button>
                 </div>
             </div>
+            <button className="deleteTodolistBtn" onClick={removeTodolist}>✖</button>
         </div>
     );
 }
