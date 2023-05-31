@@ -1,4 +1,7 @@
 import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
+import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
+import {Add} from '@mui/icons-material';
 
 type AddItemPropsType = {
     addItem: (title: string) => void
@@ -26,16 +29,18 @@ export function AddItemForm(props: AddItemPropsType) {
     }
     return (
         <div className="inputForm">
-            <div className="input">
-                <input value={title}
-                       onChange={onChangeHandler} onKeyPress={onKeyPressHandler}
-                       className={error ? 'error' : ''} // /если error !== "", то это true
+            <div style={{display: 'flex', alignItems: 'center'}}>
+                <TextField value={title}
+                           variant={'outlined'}
+                           label={'Type value'}
+                           onChange={onChangeHandler}
+                           onKeyPress={onKeyPressHandler}
+                           error={!!error}
+                           helperText={error}
                 />
-                <button className="addBtn" onClick={addItem}>+</button>
+                <Button variant="text" onClick={addItem}><Add/></Button>
             </div>
 
-            {/*если error !== "", то есть равен true, то добавить div с текстом ошибки*/}
-            {error && <div className="error-message">Title is required</div>}
         </div>
     )
 
