@@ -8,7 +8,7 @@ import {Container, Grid, Paper} from '@mui/material';
 
 export type FilterValuesType = 'all' | 'completed' | 'active';
 export type TodolistType = { id: string, title: string, filter: FilterValuesType }
-type TasksStateType = {
+export type TasksStateType = {
     [key: string]: Array<TaskItemType>
 }
 
