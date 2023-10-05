@@ -1,6 +1,6 @@
 import React, {ChangeEvent, useCallback} from 'react';
-import {AddItemForm} from './components/AddItemForm';
-import {EditableSpan} from './components/EditableSpan';
+import {AddItemForm} from './components/AddItemForm/AddItemForm';
+import {EditableSpan} from './components/EditableSpan/EditableSpan';
 import {Button} from '@mui/material';
 import {ClearRounded} from '@mui/icons-material';
 import {green, pink, purple} from '@mui/material/colors';
@@ -8,7 +8,7 @@ import {addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC} from "./
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootState} from "./state/store";
 import {FilterValuesType} from "./AppWithRedux";
-import {Task} from "./Task";
+import {Task} from "./components/Task/Task";
 
 
 export type TaskItemType = {
@@ -30,6 +30,7 @@ export const TodoList = React.memo(function(props: PropsType) {
     console.log("Todolist")
     const dispatch = useDispatch()
     const tasksObj = useSelector<AppRootState, TaskItemType[]>(state => state.tasks[props.todolistId])
+
     const onAllClickHandler = useCallback(() => props.changeFilter('all', props.todolistId), [props.changeFilter,props.todolistId])
     const onActiveClickHandler = useCallback(() => props.changeFilter('active', props.todolistId), [props.changeFilter,props.todolistId])
     const onCompletedClickHandler = useCallback(() => props.changeFilter('completed', props.todolistId), [props.changeFilter,props.todolistId])

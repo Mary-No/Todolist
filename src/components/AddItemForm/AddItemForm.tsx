@@ -3,12 +3,12 @@ import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import {Add} from '@mui/icons-material';
 
-type AddItemPropsType = {
+export type AddItemPropsType = {
     addItem: (title: string) => void
 }
 
 export const AddItemForm = React.memo( (props: AddItemPropsType) => {
-    console.log("AddItemForm is called")
+
     let [title, setTitle] = useState('')
     let [error, setError] = useState<string | null>(null)
     const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
