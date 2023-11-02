@@ -3,6 +3,8 @@ import {Button, Checkbox} from "@mui/material";
 import {EditableSpan} from "../EditableSpan/EditableSpan";
 import {ClearRounded} from "@mui/icons-material";
 import {TaskItemType} from "../../TodoList";
+import {useTask} from "./hooks/useTask";
+import {string} from "prop-types";
 
 type TaskPropsType = {
     task: TaskItemType
@@ -11,16 +13,11 @@ type TaskPropsType = {
     removeTask: () => void
 }
 export const Task = React.memo((props: TaskPropsType) => {
-
-    const onRemoveTaskClick =  useCallback(()=>{
-        props.removeTask()
-    }, [])
-    const onTitleChange =  useCallback((newValue: string)=>{
-        props.onChangeTitleHandler(newValue)
-    }, [])
-    const onStatusChange =  (e: ChangeEvent<HTMLInputElement>)=>{
-        props.onChangeStatusHandler(e)
-    }
+    const {
+        onRemoveTaskClick,
+        onTitleChange,
+        onStatusChange
+    } = useTask(props.removeTask, props.onChangeTitleHandler, props.onChangeStatusHandler)
     return <li
         className={props.task.isDone ? 'is-done' : ''}>
         <Checkbox

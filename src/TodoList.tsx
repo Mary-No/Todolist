@@ -7,7 +7,7 @@ import {green, pink, purple} from '@mui/material/colors';
 import {addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC} from "./state/tasks-reducer";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootState} from "./state/store";
-import {FilterValuesType} from "./AppWithRedux";
+import {FilterValuesType} from "./AppWithRedux/AppWithRedux";
 import {Task} from "./components/Task/Task";
 
 
