@@ -1,14 +1,14 @@
 import React, {ChangeEvent, useCallback} from 'react';
-import {AddItemForm} from './components/AddItemForm/AddItemForm';
-import {EditableSpan} from './components/EditableSpan/EditableSpan';
+import {AddItemForm} from '../AddItemForm/AddItemForm';
+import {EditableSpan} from '../EditableSpan/EditableSpan';
 import {Button} from '@mui/material';
 import {ClearRounded} from '@mui/icons-material';
 import {green, pink, purple} from '@mui/material/colors';
-import {addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC} from "./state/tasks-reducer";
+import {addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC} from "../../state/tasks-reducer";
 import {useDispatch, useSelector} from "react-redux";
-import {AppRootState} from "./state/store";
-import {FilterValuesType} from "./AppWithRedux/AppWithRedux";
-import {Task} from "./components/Task/Task";
+import {AppRootState} from "../../state/store";
+import {FilterValuesType} from "../../AppWithRedux/AppWithRedux";
+import {Task} from "../Task/Task";
 
 
 export type TaskItemType = {
@@ -27,7 +27,7 @@ type PropsType = {
 }
 
 export const TodoList = React.memo(function(props: PropsType) {
-    console.log("Todolist")
+
     const dispatch = useDispatch()
     const tasksObj = useSelector<AppRootState, TaskItemType[]>(state => state.tasks[props.todolistId])
 

@@ -2,7 +2,7 @@ import React, {ChangeEvent, useCallback} from "react";
 import {Button, Checkbox} from "@mui/material";
 import {EditableSpan} from "../EditableSpan/EditableSpan";
 import {ClearRounded} from "@mui/icons-material";
-import {TaskItemType} from "../../TodoList";
+import {TaskItemType} from "../Todolist/TodoList";
 import {useTask} from "./hooks/useTask";
 import {string} from "prop-types";
 

@@ -1,6 +1,6 @@
-import React, {useCallback} from 'react';
+import React, {useCallback, useEffect} from 'react';
 import '../App.css';
-import {TaskItemType, TodoList} from '../TodoList';
+import {TaskItemType, TodoList} from '../components/Todolist/TodoList';
 import {AddItemForm} from '../components/AddItemForm/AddItemForm';
 import ButtonAppBar from '../components/AppBar';
 import {Container, Grid, Paper} from '@mui/material';
@@ -13,6 +13,7 @@ import {
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootState} from "../state/store";
 import {useAppWithRedux} from "./hooks/useAppWithRedux";
+import axios from "axios";
 
 export type FilterValuesType = 'all' | 'completed' | 'active';
 export type TodolistType = { id: string, title: string, filter: FilterValuesType }
