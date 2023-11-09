@@ -7,11 +7,11 @@ import {green, pink, purple} from '@mui/material/colors';
 import {addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC} from "../../state/tasks-reducer";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootState} from "../../state/store";
-import {FilterValuesType} from "../../AppWithRedux/AppWithRedux";
 import {Task} from "../Task/Task";
+import {FilterValuesType} from "../../state/todolists-reducer";
 
 
-export type TaskItemType = {
+export type TaskType = {
     id: string,
     title: string,
     isDone: boolean
@@ -29,7 +29,7 @@ type PropsType = {
 export const TodoList = React.memo(function(props: PropsType) {
 
     const dispatch = useDispatch()
-    const tasksObj = useSelector<AppRootState, TaskItemType[]>(state => state.tasks[props.todolistId])
+    const tasksObj = useSelector<AppRootState, TaskType[]>(state => state.tasks[props.todolistId])
 
     const onAllClickHandler = useCallback(() => props.changeFilter('all', props.todolistId), [props.changeFilter,props.todolistId])
     const onActiveClickHandler = useCallback(() => props.changeFilter('active', props.todolistId), [props.changeFilter,props.todolistId])

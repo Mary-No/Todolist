@@ -2,12 +2,12 @@ import React, {ChangeEvent, useCallback} from "react";
 import {Button, Checkbox} from "@mui/material";
 import {EditableSpan} from "../EditableSpan/EditableSpan";
 import {ClearRounded} from "@mui/icons-material";
-import {TaskItemType} from "../Todolist/TodoList";
+import {TaskType} from "../Todolist/TodoList";
 import {useTask} from "./hooks/useTask";
 import {string} from "prop-types";
 
 type TaskPropsType = {
-    task: TaskItemType
+    task: TaskType
     onChangeTitleHandler: (newValue: string) => void
     onChangeStatusHandler: (e: ChangeEvent<HTMLInputElement>) => void
     removeTask: () => void

@@ -20,12 +20,26 @@ export type ResponseType<D={}> = {
     fieldsErrors: Array<string>
     data: D
 }
+export enum TaskStatuses {
+    New,
+    InProgress,
+    Completed,
+    Draft
+}
+export enum TaskPriorities {
+    Low,
+    Middle,
+    High,
+    Urgently,
+    Later
+}
+
 export type TaskType = {
     description: string,
     title: string,
     completed: boolean,
-    status: number,
-    priority: number,
+    status: TaskStatuses,
+    priority: TaskPriorities,
     startDate: string,
     deadline: string,
     id: string,
@@ -41,7 +55,6 @@ export type getTasksResponse = {
 export type updateTaskParam = {
     title: string
     description: string
-    // completed: boolean
     status: number
     priority: number
     startDate: string
