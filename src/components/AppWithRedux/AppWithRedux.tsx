@@ -1,9 +1,10 @@
 import React from 'react';
-import {TaskType, TodoList} from '../Todolist/TodoList';
+import {TodoList} from '../Todolist/TodoList';
 import {AddItemForm} from '../AddItemForm/AddItemForm';
 import ButtonAppBar from '../AppBar';
 import {Container, Grid, Paper} from '@mui/material';
 import {useAppWithRedux} from "./hooks/useAppWithRedux";
+import {TaskType} from "../../api/todolists-api";
 
 
 export type TasksStateType = {

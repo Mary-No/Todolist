@@ -9,13 +9,14 @@ import {useDispatch, useSelector} from "react-redux";
 import {AppRootState} from "../../state/store";
 import {Task} from "../Task/Task";
 import {FilterValuesType} from "../../state/todolists-reducer";
+import {TaskStatuses, TaskType} from "../../api/todolists-api";
 
 
-export type TaskType = {
-    id: string,
-    title: string,
-    isDone: boolean
-}
+// export type TaskType = {
+//     id: string,
+//     title: string,
+//     status: TaskStatuses
+// }
 type PropsType = {
     todolistId: string,
     title: string,
@@ -41,10 +42,10 @@ export const TodoList = React.memo(function(props: PropsType) {
     let allTodolistTasks = tasksObj;
     let tasksForTodolists = allTodolistTasks;
     if (props.filter === 'completed') {
-        tasksForTodolists = allTodolistTasks.filter(t => t.isDone)
+        tasksForTodolists = allTodolistTasks.filter(t => t.status === TaskStatuses.Completed)
     }
     if (props.filter === 'active') {
-        tasksForTodolists = allTodolistTasks.filter(t => !t.isDone)
+        tasksForTodolists = allTodolistTasks.filter(t => t.status === TaskStatuses.New)
     }
 
     return (
@@ -58,7 +59,7 @@ export const TodoList = React.memo(function(props: PropsType) {
                         tasksForTodolists.map((task) => {
                             const removeTask = () =>  dispatch(removeTaskAC(task.id, props.todolistId))
                             const onChangeStatusHandler = (e: ChangeEvent<HTMLInputElement>) => {
-                                dispatch(changeTaskStatusAC(task.id, e.currentTarget.checked, props.todolistId))
+                                dispatch(changeTaskStatusAC(task.id, e.currentTarget.checked? TaskStatuses.Completed: TaskStatuses.New, props.todolistId))
                             }
                             const onChangeTitleHandler = (newValue: string) => {
                                 dispatch(changeTaskTitleAC(task.id, newValue, props.todolistId))

@@ -1,10 +1,9 @@
-import React, {ChangeEvent, useCallback} from "react";
+import React, {ChangeEvent} from "react";
 import {Button, Checkbox} from "@mui/material";
 import {EditableSpan} from "../EditableSpan/EditableSpan";
 import {ClearRounded} from "@mui/icons-material";
-import {TaskType} from "../Todolist/TodoList";
 import {useTask} from "./hooks/useTask";
-import {string} from "prop-types";
+import {TaskStatuses, TaskType} from "../../api/todolists-api";
 
 type TaskPropsType = {
     task: TaskType
@@ -19,9 +18,9 @@ export const Task = React.memo((props: TaskPropsType) => {
         onStatusChange
     } = useTask(props.removeTask, props.onChangeTitleHandler, props.onChangeStatusHandler)
     return <li
-        className={props.task.isDone ? 'is-done' : ''}>
+        className={props.task.status === TaskStatuses.Completed ? 'is-done' : ''}>
         <Checkbox
-            checked={props.task.isDone}
+            checked={props.task.status === TaskStatuses.Completed}
             onChange={onStatusChange}
         />
 

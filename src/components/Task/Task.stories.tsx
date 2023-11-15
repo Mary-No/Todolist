@@ -1,7 +1,8 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import React, {ChangeEvent, KeyboardEvent, useState} from "react";
+import type {Meta, StoryObj} from '@storybook/react';
+import React, {useState} from "react";
 import {action} from '@storybook/addon-actions'
 import {Task} from "./Task";
+import {TaskStatuses} from "../../api/todolists-api";
 
 const meta: Meta<typeof Task> = {
     title: 'Todolists/Task',
@@ -11,7 +12,17 @@ const meta: Meta<typeof Task> = {
     },
     tags: ['autodocs'],
     args: {
-        task: {id: '234dfg', title: "JS", isDone: true},
+        task: {
+            id: '234dfg',
+            title: "JS",
+            status: TaskStatuses.New,
+            addedDate: "",
+            order: 0,
+            description: "",
+            priority: 0,
+            startDate: "",
+            deadline: "",
+        },
         onChangeTitleHandler: action("onChangeTitleHandler"),
         onChangeStatusHandler: action("onChangeStatusHandler"),
         removeTask: action("removeTask")
@@ -26,15 +37,38 @@ export const TaskIsDoneStory: Story = {};
 
 export const TaskIsNotDoneStory: Story = {
     args: {
-        task: {id: '2344dfg', title: "HTML", isDone: false}
+        task: {
+            id: '2344dfg',
+            title: "HTML",
+            status: TaskStatuses.Completed,
+            addedDate: "",
+            order: 0,
+            description: "",
+            priority: 0,
+            startDate: "",
+            deadline: "",
+        }
     }
 };
 const TaskPresentation = () => {
-    const [task, setTask] = useState({id: '264dfg', title: "CSS", isDone: false})
+    const [task, setTask] = useState({
+        id: '264dfg', title: "CSS", status: TaskStatuses.Completed, addedDate: "", order: 0,
+        description: "",
+        priority: 0,
+        startDate: "",
+        deadline: "",
+    })
     return <Task
         task={task}
-        onChangeTitleHandler = {(title) => {setTask({...task, title: title})}}
-        onChangeStatusHandler = {() => {setTask({...task, isDone: !task.isDone})}}
+        onChangeTitleHandler={(title) => {
+            setTask({...task, title: title})
+        }}
+        onChangeStatusHandler={() => {
+            setTask({
+                ...task,
+                status: task.status === TaskStatuses.Completed ? TaskStatuses.New : TaskStatuses.Completed
+            })
+        }}
         removeTask={action("removeTask")}
     />
 }
