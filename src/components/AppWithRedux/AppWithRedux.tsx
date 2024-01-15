@@ -1,10 +1,14 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {TodoList} from '../Todolist/TodoList';
 import {AddItemForm} from '../AddItemForm/AddItemForm';
 import ButtonAppBar from '../AppBar';
 import {Container, Grid, Paper} from '@mui/material';
 import {useAppWithRedux} from "./hooks/useAppWithRedux";
 import {TaskType} from "../../api/todolists-api";
+import {useDispatch} from "react-redux";
+import {fetchTodolistsTC} from "../../state/todolists-reducer";
+import {useAppDispatch} from "../../hooks/useAppDispatch";
+
 
 
 export type TasksStateType = {
@@ -20,6 +24,12 @@ function AppWithRedux() {
         changeFilter,
         changeTodolistTitle
     } = useAppWithRedux()
+
+    const dispatch = useAppDispatch();
+
+    useEffect(() => {
+        dispatch(fetchTodolistsTC())
+    }, [])
 
     return (
         <div className="App">

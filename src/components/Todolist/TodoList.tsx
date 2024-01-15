@@ -1,22 +1,18 @@
-import React, {ChangeEvent, useCallback} from 'react';
+import React, {ChangeEvent, useCallback, useEffect} from 'react';
 import {AddItemForm} from '../AddItemForm/AddItemForm';
 import {EditableSpan} from '../EditableSpan/EditableSpan';
 import {Button} from '@mui/material';
 import {ClearRounded} from '@mui/icons-material';
 import {green, pink, purple} from '@mui/material/colors';
-import {addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC} from "../../state/tasks-reducer";
+import {addTaskAC, changeTaskStatusAC, changeTaskTitleAC, fetchTasksTC, removeTaskAC} from "../../state/tasks-reducer";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootState} from "../../state/store";
 import {Task} from "../Task/Task";
 import {FilterValuesType} from "../../state/todolists-reducer";
 import {TaskStatuses, TaskType} from "../../api/todolists-api";
+import {useAppDispatch} from "../../hooks/useAppDispatch";
 
 
-// export type TaskType = {
-//     id: string,
-//     title: string,
-//     status: TaskStatuses
-// }
 type PropsType = {
     todolistId: string,
     title: string,
@@ -27,17 +23,20 @@ type PropsType = {
 
 }
 
-export const TodoList = React.memo(function(props: PropsType) {
+export const TodoList = React.memo(function (props: PropsType) {
+    const dispatch = useAppDispatch();
+    useEffect(() => {
+        dispatch(fetchTasksTC(props.todolistId))
+    }, [])
 
-    const dispatch = useDispatch()
     const tasksObj = useSelector<AppRootState, TaskType[]>(state => state.tasks[props.todolistId])
 
-    const onAllClickHandler = useCallback(() => props.changeFilter('all', props.todolistId), [props.changeFilter,props.todolistId])
-    const onActiveClickHandler = useCallback(() => props.changeFilter('active', props.todolistId), [props.changeFilter,props.todolistId])
-    const onCompletedClickHandler = useCallback(() => props.changeFilter('completed', props.todolistId), [props.changeFilter,props.todolistId])
+    const onAllClickHandler = useCallback(() => props.changeFilter('all', props.todolistId), [props.changeFilter, props.todolistId])
+    const onActiveClickHandler = useCallback(() => props.changeFilter('active', props.todolistId), [props.changeFilter, props.todolistId])
+    const onCompletedClickHandler = useCallback(() => props.changeFilter('completed', props.todolistId), [props.changeFilter, props.todolistId])
     const removeTodolist = () => props.removeTodolist(props.todolistId)
     const addTask = useCallback((title: string) => dispatch(addTaskAC(title, props.todolistId)), [dispatch, props.todolistId])
-    const changeTodolistTitle = useCallback((title: string) => props.changeTodolistTitle(title, props.todolistId), [props.changeTodolistTitle,props.todolistId])
+    const changeTodolistTitle = useCallback((title: string) => props.changeTodolistTitle(title, props.todolistId), [props.changeTodolistTitle, props.todolistId])
 
     let allTodolistTasks = tasksObj;
     let tasksForTodolists = allTodolistTasks;
@@ -57,15 +56,16 @@ export const TodoList = React.memo(function(props: PropsType) {
                 <ul style={{listStyleType: 'none', paddingLeft: '20px'}}>
                     {
                         tasksForTodolists.map((task) => {
-                            const removeTask = () =>  dispatch(removeTaskAC(task.id, props.todolistId))
+                            const removeTask = () => dispatch(removeTaskAC(task.id, props.todolistId))
                             const onChangeStatusHandler = (e: ChangeEvent<HTMLInputElement>) => {
-                                dispatch(changeTaskStatusAC(task.id, e.currentTarget.checked? TaskStatuses.Completed: TaskStatuses.New, props.todolistId))
+                                dispatch(changeTaskStatusAC(task.id, e.currentTarget.checked ? TaskStatuses.Completed : TaskStatuses.New, props.todolistId))
                             }
                             const onChangeTitleHandler = (newValue: string) => {
                                 dispatch(changeTaskTitleAC(task.id, newValue, props.todolistId))
                             }
 
-                            return <Task key={task.id} task={task} onChangeStatusHandler={onChangeStatusHandler} onChangeTitleHandler={onChangeTitleHandler} removeTask={removeTask}/>
+                            return <Task key={task.id} task={task} onChangeStatusHandler={onChangeStatusHandler}
+                                         onChangeTitleHandler={onChangeTitleHandler} removeTask={removeTask}/>
                         })
                     }
 

@@ -1,7 +1,14 @@
 import {v1} from 'uuid';
-import {TaskStatuses} from '../api/todolists-api';
+import {TaskStatuses, TaskType, todolistsAPI} from '../api/todolists-api';
 import {TasksStateType} from '../components/AppWithRedux/AppWithRedux'
-import {AddTodolistActionType, RemoveTodolistActionType, todolistId_1, todolistId_2} from './todolists-reducer';
+import {
+    AddTodolistActionType,
+    RemoveTodolistActionType,
+    SetTodolistsActionType,
+    todolistId_1,
+    todolistId_2
+} from './todolists-reducer';
+import {Dispatch} from "redux";
 
 
 export type RemoveTaskActionType = {
@@ -27,6 +34,11 @@ export type ChangeTaskStatusActionType = {
     todolistId: string,
     taskId: string
 }
+export type SetTasksActionType = {
+    type: 'SET-TASKS'
+    tasks: Array<TaskType>
+    todolistId: string
+}
 type ActionType =
     RemoveTaskActionType
     | AddTaskActionType
@@ -34,6 +46,8 @@ type ActionType =
     | ChangeTaskStatusActionType
     | AddTodolistActionType
     | RemoveTodolistActionType
+    | SetTodolistsActionType
+    | SetTasksActionType
 
 
 const initialState: TasksStateType = {
@@ -51,51 +65,65 @@ const initialState: TasksStateType = {
                 deadline: "",
                 todolistId: todolistId_1
             },
-            {id: v1(), title: 'JS', status: TaskStatuses.Completed, addedDate: "", order: 0,
+            {
+                id: v1(), title: 'JS', status: TaskStatuses.Completed, addedDate: "", order: 0,
                 description: "",
                 priority: 0,
                 startDate: "",
                 deadline: "",
-                todolistId: todolistId_1},
-            {id: v1(), title: 'React', status: TaskStatuses.New, addedDate: "", order: 0,
+                todolistId: todolistId_1
+            },
+            {
+                id: v1(), title: 'React', status: TaskStatuses.New, addedDate: "", order: 0,
                 description: "",
                 priority: 0,
                 startDate: "",
                 deadline: "",
-                todolistId: todolistId_1},
-            {id: v1(), title: 'Redux', status: TaskStatuses.New, addedDate: "", order: 0,
+                todolistId: todolistId_1
+            },
+            {
+                id: v1(), title: 'Redux', status: TaskStatuses.New, addedDate: "", order: 0,
                 description: "",
                 priority: 0,
                 startDate: "",
                 deadline: "",
-                todolistId: todolistId_1}
+                todolistId: todolistId_1
+            }
         ],
     [todolistId_2]:
         [
-            {id: v1(), title: 'Milk', status: TaskStatuses.New, addedDate: "", order: 0,
+            {
+                id: v1(), title: 'Milk', status: TaskStatuses.New, addedDate: "", order: 0,
                 description: "",
                 priority: 0,
                 startDate: "",
                 deadline: "",
-                todolistId: todolistId_2},
-            {id: v1(), title: 'Bred', status: TaskStatuses.Completed, addedDate: "", order: 0,
+                todolistId: todolistId_2
+            },
+            {
+                id: v1(), title: 'Bred', status: TaskStatuses.Completed, addedDate: "", order: 0,
                 description: "",
                 priority: 0,
                 startDate: "",
                 deadline: "",
-                todolistId: todolistId_2},
-            {id: v1(), title: 'Potato', status: TaskStatuses.New, addedDate: "", order: 0,
+                todolistId: todolistId_2
+            },
+            {
+                id: v1(), title: 'Potato', status: TaskStatuses.New, addedDate: "", order: 0,
                 description: "",
                 priority: 0,
                 startDate: "",
                 deadline: "",
-                todolistId: todolistId_2},
-            {id: v1(), title: 'Meat', status: TaskStatuses.Completed, addedDate: "", order: 0,
+                todolistId: todolistId_2
+            },
+            {
+                id: v1(), title: 'Meat', status: TaskStatuses.Completed, addedDate: "", order: 0,
                 description: "",
                 priority: 0,
                 startDate: "",
                 deadline: "",
-                todolistId: todolistId_2}
+                todolistId: todolistId_2
+            }
         ],
 
 }
@@ -147,6 +175,18 @@ export const tasksReducer = (state: TasksStateType = initialState, action: Actio
             delete stateCopy[action.id];
             return stateCopy
         }
+        case 'SET-TODOLISTS': {
+            const stateCopy = {...state};
+            action.todolists.forEach(tl => {
+                stateCopy[tl.id] = []
+            })
+            return stateCopy
+        }
+        case 'SET-TASKS': {
+            const stateCopy = {...state};
+           stateCopy[action.todolistId] = action.tasks
+            return stateCopy
+        }
         default:
             return state;
     }
@@ -162,4 +202,15 @@ export const changeTaskTitleAC = (taskId: string, title: string, todolistId: str
 }
 export const changeTaskStatusAC = (taskId: string, status: TaskStatuses, todolistId: string): ChangeTaskStatusActionType => {
     return {type: 'CHANGE-TASK-STATUS', status, taskId, todolistId}
+}
+export const setTasksAC = (todolistId: string, tasks: TaskType[]): SetTasksActionType => {
+    return{type: 'SET-TASKS', todolistId, tasks}
+}
+export const fetchTasksTC = (todolistId:string) => {
+    return(dispatch:Dispatch)=>{
+        todolistsAPI.getTasks(todolistId)
+            .then((res)=>{
+                dispatch(setTasksAC(todolistId, res.data.items))
+            })
+    }
 }
