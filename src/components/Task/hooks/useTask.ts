@@ -1,6 +1,9 @@
 import {ChangeEvent, useCallback} from "react";
 
-export const useTask = (removeTask: () => void, onChangeTitleHandler: (newValue: string) => void, onChangeStatusHandler: (e: ChangeEvent<HTMLInputElement>) => void) => {
+export const useTask = (
+    removeTask: () => void,
+    onChangeTitleHandler: (newValue: string) => void,
+    onChangeStatusHandler: (e: ChangeEvent<HTMLInputElement>) => void) => {
 
     const onRemoveTaskClick = useCallback(() => {
         removeTask()

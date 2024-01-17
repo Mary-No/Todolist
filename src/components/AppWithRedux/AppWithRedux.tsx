@@ -5,10 +5,8 @@ import ButtonAppBar from '../AppBar';
 import {Container, Grid, Paper} from '@mui/material';
 import {useAppWithRedux} from "./hooks/useAppWithRedux";
 import {TaskType} from "../../api/todolists-api";
-import {useDispatch} from "react-redux";
 import {fetchTodolistsTC} from "../../state/todolists-reducer";
 import {useAppDispatch} from "../../hooks/useAppDispatch";
-
 
 
 export type TasksStateType = {
@@ -40,10 +38,9 @@ function AppWithRedux() {
                     {
                         todolists.map((tl) => {
                             return (
-                                <Grid item>
+                                <Grid item  key={tl.id}>
                                     <Paper style={{padding: '5px 0px 15px 20px'}}>
                                         <TodoList
-                                            key={tl.id}
                                             todolistId={tl.id}
                                             title={tl.title}
                                             changeFilter={changeFilter}

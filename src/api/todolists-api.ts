@@ -37,13 +37,12 @@ export enum TaskPriorities {
 export type TaskType = {
     description: string,
     title: string,
-    completed?: boolean,
     status: TaskStatuses,
     priority: TaskPriorities,
     startDate: string,
     deadline: string,
     id: string,
-    todolistId?: string,
+    todoListId: string,
     order: number,
     addedDate: string,
 }
@@ -55,8 +54,8 @@ export type getTasksResponse = {
 export type updateTaskParam = {
     title: string
     description: string
-    status: number
-    priority: number
+    status: TaskStatuses
+    priority: TaskPriorities
     startDate: string
     deadline: string
 }

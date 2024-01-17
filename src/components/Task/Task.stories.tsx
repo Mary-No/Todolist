@@ -2,7 +2,7 @@ import type {Meta, StoryObj} from '@storybook/react';
 import React, {useState} from "react";
 import {action} from '@storybook/addon-actions'
 import {Task} from "./Task";
-import {TaskStatuses} from "../../api/todolists-api";
+import {TaskPriorities, TaskStatuses} from "../../api/todolists-api";
 
 const meta: Meta<typeof Task> = {
     title: 'Todolists/Task',
@@ -14,6 +14,7 @@ const meta: Meta<typeof Task> = {
     args: {
         task: {
             id: '234dfg',
+            todoListId: "todolistId2",
             title: "JS",
             status: TaskStatuses.New,
             addedDate: "",
@@ -39,6 +40,7 @@ export const TaskIsNotDoneStory: Story = {
     args: {
         task: {
             id: '2344dfg',
+            todoListId: "todolistId2",
             title: "HTML",
             status: TaskStatuses.Completed,
             addedDate: "",
@@ -53,6 +55,7 @@ export const TaskIsNotDoneStory: Story = {
 const TaskPresentation = () => {
     const [task, setTask] = useState({
         id: '264dfg', title: "CSS", status: TaskStatuses.Completed, addedDate: "", order: 0,
+        todoListId: "todolistId2",
         description: "",
         priority: 0,
         startDate: "",

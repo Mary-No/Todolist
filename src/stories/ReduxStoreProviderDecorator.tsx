@@ -25,13 +25,13 @@ const initialGlobalState: AppRootState = {
                 priority: 0,
                 startDate: "",
                 deadline: "",
-                todolistId: "todolistId1"},
+                todoListId: "todolistId1"},
             {id: v1(), title: "JS", status: TaskStatuses.Completed, addedDate: "", order: 0,
                 description: "",
                 priority: 0,
                 startDate: "",
                 deadline: "",
-                todolistId: "todolistId1"}
+                todoListId: "todolistId1"}
         ],
         ["todolistId2"]: [
             {id: v1(), title: "Milk", status: TaskStatuses.Completed, addedDate: "", order: 0,
@@ -39,13 +39,13 @@ const initialGlobalState: AppRootState = {
                 priority: 0,
                 startDate: "",
                 deadline: "",
-                todolistId: "todolistId2"},
+                todoListId: "todolistId2"},
             {id: v1(), title: "React book", status: TaskStatuses.Completed, addedDate: "", order: 0,
                 description: "",
                 priority: 0,
                 startDate: "",
                 deadline: "",
-                todolistId: "todolistId2"}
+                todoListId: "todolistId2"}
         ]
     }
 }
