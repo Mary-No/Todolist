@@ -7,58 +7,6 @@ const instance = axios.create({
         'API-KEY': '234c9bba-18f8-4dd2-860f-665d9f96e11c'
     }
 })
-export type TodolistType = {
-    id: string,
-    title: string,
-    addedDate: string,
-    order: number
-}
-
-export type ResponseType<D={}> = {
-    resultCode: number
-    messages: Array<string>
-    fieldsErrors: Array<string>
-    data: D
-}
-export enum TaskStatuses {
-    New,
-    InProgress,
-    Completed,
-    Draft
-}
-export enum TaskPriorities {
-    Low,
-    Middle,
-    High,
-    Urgently,
-    Later
-}
-
-export type TaskType = {
-    description: string,
-    title: string,
-    status: TaskStatuses,
-    priority: TaskPriorities,
-    startDate: string,
-    deadline: string,
-    id: string,
-    todoListId: string,
-    order: number,
-    addedDate: string,
-}
-export type getTasksResponse = {
-    error: string | null,
-    totalCount: number,
-    items: Array<TaskType>
-}
-export type updateTaskParam = {
-    title: string
-    description: string
-    status: TaskStatuses
-    priority: TaskPriorities
-    startDate: string
-    deadline: string
-}
 
 export const todolistsAPI = {
     getTodolists() {
@@ -86,4 +34,56 @@ export const todolistsAPI = {
     updateTask(todolistId: string, taskId: string, param: updateTaskParam){
         return instance.put<ResponseType<{item:TaskType}>>(`todo-lists/${todolistId}/tasks/${taskId}`, param)
     }
+}
+
+//Types
+export type TodolistType = {
+    id: string,
+    title: string,
+    addedDate: string,
+    order: number
+}
+export type ResponseType<D={}> = {
+    resultCode: number
+    messages: Array<string>
+    fieldsErrors: Array<string>
+    data: D
+}
+export enum TaskStatuses {
+    New,
+    InProgress,
+    Completed,
+    Draft
+}
+export enum TaskPriorities {
+    Low,
+    Middle,
+    High,
+    Urgently,
+    Later
+}
+export type TaskType = {
+    description: string,
+    title: string,
+    status: TaskStatuses,
+    priority: TaskPriorities,
+    startDate: string,
+    deadline: string,
+    id: string,
+    todoListId: string,
+    order: number,
+    addedDate: string,
+}
+export type getTasksResponse = {
+    error: string | null,
+    totalCount: number,
+    items: Array<TaskType>
+}
+export type updateTaskParam = {
+    title: string
+    description: string
+    status: TaskStatuses
+    priority: TaskPriorities
+    startDate: string
+    deadline: string
 }

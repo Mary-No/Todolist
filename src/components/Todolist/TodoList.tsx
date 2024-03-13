@@ -7,7 +7,7 @@ import {green, pink, purple} from '@mui/material/colors';
 import {addTaskTC, fetchTasksTC, removeTaskTC, updateTaskTC} from "../../state/tasks-reducer";
 import {useSelector} from "react-redux";
 import {AppRootState} from "../../state/store";
-import {Task} from "../Task/Task";
+import {Task} from "./Task/Task";
 import {changeTodolistTitleTC, FilterValuesType, removeTodolistTC} from "../../state/todolists-reducer";
 import {TaskStatuses, TaskType} from "../../api/todolists-api";
 import {useAppDispatch} from "../../hooks/useAppDispatch";

@@ -1,9 +1,9 @@
 import React, {ChangeEvent} from "react";
 import {Button, Checkbox} from "@mui/material";
-import {EditableSpan} from "../EditableSpan/EditableSpan";
+import {EditableSpan} from "../../EditableSpan/EditableSpan";
 import {ClearRounded} from "@mui/icons-material";
 import {useTask} from "./hooks/useTask";
-import {TaskStatuses, TaskType} from "../../api/todolists-api";
+import {TaskStatuses, TaskType} from "../../../api/todolists-api";
 
 type TaskPropsType = {
     task: TaskType

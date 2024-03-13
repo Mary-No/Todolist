@@ -14,7 +14,6 @@ export type TasksStateType = {
 }
 
 function AppWithRedux() {
-
     const {
         todolists,
         addTodolist,
