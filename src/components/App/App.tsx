@@ -2,25 +2,29 @@ import React, {useEffect} from 'react';
 import {TodoList} from '../Todolist/TodoList';
 import {AddItemForm} from '../AddItemForm/AddItemForm';
 import ButtonAppBar from '../AppBar';
-import {Container, Grid, Paper} from '@mui/material';
-import {useAppWithRedux} from "./hooks/useAppWithRedux";
+import {Container, Grid, LinearProgress, Paper} from '@mui/material';
+import {useApp} from "./hooks/useApp";
 import {TaskType} from "../../api/todolists-api";
-import {fetchTodolistsTC} from "../../state/todolists-reducer";
-import {useAppDispatch} from "../../hooks/useAppDispatch";
+import {fetchTodolistsTC} from "../Todolist/todolists-reducer";
+import {useAppDispatch} from "./hooks/useAppDispatch";
+import {ErrorSnackBar} from "../ErrorSnackBar/ErrorSnackBar";
+import {useSelector} from "react-redux";
+import {RequestStatusType} from "./app.reducer";
+import {AppRootState} from "./store";
 
 
 export type TasksStateType = {
     [key: string]: Array<TaskType>
 }
 
-function AppWithRedux() {
+function App() {
     const {
         todolists,
         addTodolist,
         removeTodolist,
         changeFilter,
         changeTodolistTitle
-    } = useAppWithRedux()
+    } = useApp()
 
     const dispatch = useAppDispatch();
 
@@ -28,9 +32,13 @@ function AppWithRedux() {
         dispatch(fetchTodolistsTC())
     }, [])
 
+    const status = useSelector<AppRootState, RequestStatusType>((state) => state.app.status)
+
     return (
         <div className="App">
+            <ErrorSnackBar/>
             <ButtonAppBar/>
+            {status === 'loading' && <LinearProgress/>}
             <Container fixed>
                 <Grid container style={{margin: '20px 0px'}}> <AddItemForm addItem={addTodolist}/></Grid>
                 <Grid container spacing={8}>
@@ -55,8 +63,9 @@ function AppWithRedux() {
 
                 </Grid>
             </Container>
+
         </div>
     );
 }
 
-export default AppWithRedux;
+export default App;

@@ -1,7 +1,7 @@
 import {addTaskAC, removeTaskAC, setTasksAC, tasksReducer, updateTaskAC} from './tasks-reducer'
-import {TasksStateType} from '../components/AppWithRedux/AppWithRedux';
-import {addTodolistAC, removeTodolistAC, setTodolistsAC} from './todolists-reducer';
-import {TaskStatuses} from "../api/todolists-api";
+import {TasksStateType} from '../../App/App';
+import {addTodolistAC, removeTodolistAC, setTodolistsAC} from '../todolists-reducer';
+import {TaskStatuses} from "../../../api/todolists-api";
 
 const startState: TasksStateType = {
     'todolistId1': [

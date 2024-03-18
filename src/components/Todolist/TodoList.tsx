@@ -4,13 +4,13 @@ import {EditableSpan} from '../EditableSpan/EditableSpan';
 import {Button} from '@mui/material';
 import {ClearRounded} from '@mui/icons-material';
 import {green, pink, purple} from '@mui/material/colors';
-import {addTaskTC, fetchTasksTC, removeTaskTC, updateTaskTC} from "../../state/tasks-reducer";
+import {addTaskTC, fetchTasksTC, removeTaskTC, updateTaskTC} from "./Task/tasks-reducer";
 import {useSelector} from "react-redux";
-import {AppRootState} from "../../state/store";
+import {AppRootState} from "../App/store";
 import {Task} from "./Task/Task";
-import {changeTodolistTitleTC, FilterValuesType, removeTodolistTC} from "../../state/todolists-reducer";
+import {changeTodolistTitleTC, FilterValuesType, removeTodolistTC} from "./todolists-reducer";
 import {TaskStatuses, TaskType} from "../../api/todolists-api";
-import {useAppDispatch} from "../../hooks/useAppDispatch";
+import {useAppDispatch} from "../App/hooks/useAppDispatch";
 
 
 type PropsType = {

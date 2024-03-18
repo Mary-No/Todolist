@@ -1,10 +1,10 @@
 import React from 'react'
 import {Provider} from "react-redux";
-import {todolistsReducer} from "../state/todolists-reducer";
+import {todolistsReducer} from "../components/Todolist/todolists-reducer";
 import {combineReducers, createStore} from "redux";
-import {tasksReducer} from "../state/tasks-reducer";
+import {tasksReducer} from "../components/Todolist/Task/tasks-reducer";
 import {v1} from "uuid";
-import {AppRootState} from "../state/store";
+import {AppRootState} from "../components/App/store";
 import {TaskStatuses} from "../api/todolists-api";
 
 const rootReducer = combineReducers({
@@ -13,9 +13,9 @@ const rootReducer = combineReducers({
 })
 const initialGlobalState: AppRootState = {
     todolists: [
-        {id: "todolistId1", title: "What to learn", filter: "all", addedDate: "",
+        {id: "todolistId1", title: "What to learn", filter: "all",  entityStatus:'idle', addedDate: "",
             order: 0},
-        {id: "todolistId2", title: "What to buy", filter: "all", addedDate: "",
+        {id: "todolistId2", title: "What to buy", filter: "all", entityStatus:'idle', addedDate: "",
             order: 0}
     ],
     tasks: {
@@ -47,6 +47,10 @@ const initialGlobalState: AppRootState = {
                 deadline: "",
                 todoListId: "todolistId2"}
         ]
+    },
+    app:{
+        error: null,
+        status: 'idle'
     }
 }
 
