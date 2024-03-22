@@ -3,7 +3,7 @@ import {TextField} from '@mui/material';
 
 type EditableSpanType = {
     title: string
-    onChange: (value: string) => void
+    onChange: (title: string) => void
 
 }
 

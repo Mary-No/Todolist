@@ -12,10 +12,10 @@ export const useAddItemForm = (onItemAdded: (title: string) => void) => {
         }
 
         if (e.key === 'Enter') {
-            addItem();
+            addItemHandler();
         }
     }
-    const addItem = () => {
+    const addItemHandler = () => {
         if (title.trim() !== '') {
             onItemAdded(title.trim());
             setTitle('');
@@ -28,7 +28,7 @@ export const useAddItemForm = (onItemAdded: (title: string) => void) => {
         error,
         onKeyPressHandler,
         onChangeHandler,
-        addItem
+        addItemHandler
 
     }
 }
