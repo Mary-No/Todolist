@@ -8,7 +8,7 @@ import {addTaskTC, fetchTasksTC, removeTaskTC, updateTaskTC} from "./Task/tasks-
 import {useSelector} from "react-redux";
 import {AppRootState} from "../App/store";
 import {Task} from "./Task/Task";
-import {changeTodolistTitleTC, FilterValuesType, TodolistDomainType} from "./todolists-reducer";
+import {FilterValuesType, TodolistDomainType} from "./todolists-reducer";
 import {TaskStatuses, TaskType} from "../../api/todolists-api";
 import {useAppDispatch} from "../App/hooks/useAppDispatch";
 

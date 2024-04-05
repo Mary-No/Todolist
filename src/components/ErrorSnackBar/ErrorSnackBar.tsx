@@ -1,11 +1,10 @@
 import * as React from 'react';
-import Button from '@mui/material/Button';
 import Snackbar from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
 import {useSelector} from "react-redux";
 import {AppRootState} from "../App/store";
 import {useAppDispatch} from "../App/hooks/useAppDispatch";
-import {setAppErrorAC} from "../App/app.reducer";
+import {setAppErrorAC} from "../App/app-reducer";
 
 
 export function ErrorSnackBar() {

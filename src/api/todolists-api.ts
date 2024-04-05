@@ -26,16 +26,27 @@ export const todolistsAPI = {
         return instance.get<getTasksResponse>(`todo-lists/${todolistId}/tasks`)
     },
     createTask(todolistId: string, title: string) {
-        return instance.post<ResponseType<{item:TaskType}>>(`todo-lists/${todolistId}/tasks`, {title: title})
+        return instance.post<ResponseType<{ item: TaskType }>>(`todo-lists/${todolistId}/tasks`, {title: title})
     },
-    deleteTask(todolistId: string, taskId: string){
+    deleteTask(todolistId: string, taskId: string) {
         return instance.delete<ResponseType>(`todo-lists/${todolistId}/tasks/${taskId}`)
     },
-    updateTask(todolistId: string, taskId: string, param: updateTaskParam){
-        return instance.put<ResponseType<{item:TaskType}>>(`todo-lists/${todolistId}/tasks/${taskId}`, param)
+    updateTask(todolistId: string, taskId: string, param: updateTaskParam) {
+        return instance.put<ResponseType<{ item: TaskType }>>(`todo-lists/${todolistId}/tasks/${taskId}`, param)
     }
 }
 
+export const authAPI = {
+    login(data: LoginParamsType) {
+        return instance.post<ResponseType<{userId?:number}>>('auth/login', data)
+    },
+    logout(){
+        return instance.delete<ResponseType<{userId?:number}>>('auth/login')
+    },
+    authMe(){
+        return instance.get<ResponseType<{id: number, email: string, login: string}>>('auth/me')
+    }
+}
 //Types
 export type TodolistType = {
     id: string,
@@ -43,7 +54,7 @@ export type TodolistType = {
     addedDate: string,
     order: number
 }
-export type ResponseType<D={}> = {
+export type ResponseType<D = {}> = {
     resultCode: number
     messages: Array<string>
     fieldsErrors: Array<string>
@@ -86,4 +97,10 @@ export type updateTaskParam = {
     priority: TaskPriorities
     startDate: string
     deadline: string
+}
+export type LoginParamsType = {
+    email: string
+    password: string
+    rememberMe: boolean
+    captcha?: string
 }

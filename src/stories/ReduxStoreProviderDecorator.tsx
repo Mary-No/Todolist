@@ -7,7 +7,7 @@ import {v1} from "uuid";
 import {AppRootState} from "../components/App/store";
 import {TaskStatuses} from "../api/todolists-api";
 import {thunk} from "redux-thunk";
-import {appReducer} from "../components/App/app.reducer";
+import {appReducer} from "../components/App/app-reducer";
 
 const rootReducer = combineReducers({
     tasks: tasksReducer,
@@ -53,7 +53,11 @@ const initialGlobalState: AppRootState = {
     },
     app:{
         error: null,
-        status: 'idle'
+        status: 'idle',
+        isInitialized: false
+    },
+    auth: {
+        isLoggedIn: false
     }
 }
 

@@ -1,12 +1,11 @@
 import {
-    setAppErrorAC,
-    setAppStatusAC,
-} from "../components/App/app.reducer";
+    setAppErrorAC, SetAppErrorActionType,
+    setAppStatusAC, SetAppStatusActionType,
+} from "../components/App/app-reducer";
 import {ResponseType} from "../api/todolists-api";
 import {Dispatch} from "redux";
-import {ThunkDispatchType} from "../components/Todolist/Task/tasks-reducer";
 
-export const handleServerAppError = <D>(data: ResponseType<D>, dispatch: Dispatch<ThunkDispatchType>) => {
+export const handleServerAppError = <D>(data: ResponseType<D>, dispatch: ThunkDispatch) => {
     if (data.messages.length) {
         dispatch(setAppErrorAC(data.messages[0]))
     } else {
@@ -14,7 +13,8 @@ export const handleServerAppError = <D>(data: ResponseType<D>, dispatch: Dispatc
     }
     dispatch(setAppStatusAC('failed'))
 }
-export const handleServerNetworkError = <D>(error: any, dispatch: Dispatch<ThunkDispatchType>) => {
+export const handleServerNetworkError = (error: any, dispatch: ThunkDispatch) => {
     dispatch(setAppErrorAC(error.message? error.message: 'Some error occurred'))
     dispatch(setAppStatusAC('failed'))
 }
+type ThunkDispatch = Dispatch<SetAppStatusActionType | SetAppErrorActionType>

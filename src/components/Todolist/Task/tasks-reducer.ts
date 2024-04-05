@@ -3,7 +3,7 @@ import {TasksStateType} from '../../App/App'
 import {AddTodolistActionType, RemoveTodolistActionType, SetTodolistsActionType} from '../todolists-reducer';
 import {Dispatch} from "redux";
 import {AppRootState} from "../../App/store";
-import {setAppErrorAC, SetAppErrorActionType, setAppStatusAC, SetAppStatusActionType} from "../../App/app.reducer";
+import {SetAppErrorActionType, setAppStatusAC, SetAppStatusActionType} from "../../App/app-reducer";
 import {handleServerAppError, handleServerNetworkError} from "../../../utils/error-utils";
 
 
@@ -118,7 +118,7 @@ type ActionType =
     | RemoveTodolistActionType
     | SetTodolistsActionType
 
-export type ThunkDispatchType = ActionType  | SetAppErrorActionType | SetAppStatusActionType
+type ThunkDispatchType = ActionType  | SetAppErrorActionType | SetAppStatusActionType
 export type UpdateDomainTaskModelType = {
     title?: string
     description?: string
